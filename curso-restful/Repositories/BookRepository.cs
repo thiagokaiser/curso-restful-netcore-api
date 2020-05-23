@@ -6,17 +6,23 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace curso_restful.Repositories
-{    
-    public class PersonRepository : GenericRepository<Person>, IPersonRepository
+{
+    public class BookRepository : GenericRepository<Book>, IBookRepository
     {
         private readonly MyDbContext context;
-        public PersonRepository(MyDbContext context) : base(context)
+        public BookRepository(MyDbContext context) : base(context)
         {
             this.context = context;
+        }
+
+        public Book GetBookByPrice(decimal item)
+        {
+            return context.Books.FirstOrDefault(p => p.Price == item);
         }
     }
 }

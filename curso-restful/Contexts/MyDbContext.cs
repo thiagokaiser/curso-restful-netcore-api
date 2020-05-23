@@ -16,5 +16,6 @@ namespace curso_restful.Contexts
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

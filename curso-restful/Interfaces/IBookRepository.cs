@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace curso_restful.Interfaces
 {
-    public interface IPersonRepository : IRepository<Person>
-    { 
+    public interface IBookRepository : IRepository<Book>
+    {
+        Book GetBookByPrice(decimal item);
     }
 }

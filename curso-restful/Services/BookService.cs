@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace curso_restful.Services
 {
-    public class PersonService
+    public class BookService
     {
-        private IPersonRepository repo;
+        private IBookRepository repo;
 
-        public PersonService(IPersonRepository repo)
+        public BookService(IBookRepository repo)
         {
             this.repo = repo;
         }
 
-        public Person Create(Person person)
+        public Book Create(Book book)
         {
-            return repo.Create(person);
+            return repo.Create(book);
         }
 
         public void Delete(long id)
@@ -29,19 +29,24 @@ namespace curso_restful.Services
             repo.Delete(id);
         }
 
-        public List<Person> FindAll()
+        public List<Book> FindAll()
         {
             return repo.FindAll();
         }        
 
-        public Person FindById(long id)
+        public Book FindById(long id)
         {
             return repo.FindById(id);
         }
 
-        public Person Update(Person person)
+        public Book Update(Book book)
         {
-            return repo.Update(person);
-        }        
+            return repo.Update(book);
+        }
+
+        public Book GetBookByPrice(decimal valor)
+        {
+            return repo.GetBookByPrice(valor);
+        }
     }
 }

@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using curso_restful.Contexts;
 using curso_restful.Interfaces;
+using curso_restful.Models;
+using curso_restful.Repositories;
+using curso_restful.Repositories.Generic;
 using curso_restful.Services;
-using curso_restful.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +34,10 @@ namespace curso_restful
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<PersonService>();
+            services.AddScoped<BookService>();            
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
+
 
             services.AddDbContext<MyDbContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("CursoRESTful")));

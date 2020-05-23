@@ -5,15 +5,14 @@ using System.Threading.Tasks;
 using curso_restful.Interfaces;
 using curso_restful.Models;
 using curso_restful.Services;
-using curso_restful.Services.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace curso_restful.Controllers
 {
     [ApiVersion("1")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [Route("api/v{version:apiVersion}/[controller]")]    
     public class PersonController : ControllerBase
     {
         private PersonService personService;
@@ -31,7 +30,7 @@ namespace curso_restful.Controllers
         }
 
         // GET: api/Person/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var person = personService.FindById(id);
