@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using curso_restful.Interfaces;
 using curso_restful.Models;
 using curso_restful.Services;
+using curso_restful.Services.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace curso_restful.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private IPersonService personService;
+        private PersonService personService;
 
-        public PersonController(IPersonService personService)
+        public PersonController(PersonService personService)
         {
             this.personService = personService;
         }
@@ -44,8 +47,8 @@ namespace curso_restful.Controllers
             return new ObjectResult(personService.Create(person));
         }
 
-        // PUT: api/Person/5
-        [HttpPut("{id}")]
+        // PUT: api/Person/
+        [HttpPut]
         public IActionResult Put([FromBody] Person person)
         {
             if (person == null) return BadRequest();
