@@ -39,7 +39,8 @@ namespace curso_restful
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<PersonService>();
-            services.AddScoped<BookService>();            
+            services.AddScoped<BookService>();
+            services.AddScoped<FileService>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
 
