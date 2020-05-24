@@ -8,6 +8,7 @@ using curso_restful.Services;
 using curso_restful.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.Swagger.Annotations;
 using Tapioca.HATEOAS;
 
 namespace curso_restful.Controllers
@@ -23,17 +24,21 @@ namespace curso_restful.Controllers
         {
             this.personService = personService;
         }
-
-        // GET: api/Person
-        [HttpGet]
+        
+        [HttpGet]        
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(personService.FindAll());
         }
-
-        // GET: api/Person/5
+                
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(int id)
         {
@@ -41,27 +46,33 @@ namespace curso_restful.Controllers
             if (person == null) return NotFound();
             return Ok(person);
         }
-
-        // POST: api/Person
+                
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] PersonVM person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(personService.Create(person));
         }
-
-        // PUT: api/Person/
+                
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] PersonVM person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(personService.Update(person));
         }
-
-        // DELETE: api/ApiWithActions/5
+                
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         {
