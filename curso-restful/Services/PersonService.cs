@@ -1,6 +1,8 @@
 ﻿using curso_restful.Contexts;
 using curso_restful.Interfaces;
 using curso_restful.Models;
+using curso_restful.ViewModels;
+using curso_restful.ViewModels.Converter;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System;
 using System.Collections.Generic;
@@ -13,15 +15,19 @@ namespace curso_restful.Services
     public class PersonService
     {
         private IPersonRepository repo;
+        private PersonConverter converter;
 
         public PersonService(IPersonRepository repo)
         {
             this.repo = repo;
+            this.converter = new PersonConverter();
         }
 
-        public Person Create(Person person)
+        public PersonVM Create(PersonVM person)
         {
-            return repo.Create(person);
+            var model = converter.Parse(person);
+            var vm = converter.Parse(repo.Create(model));
+            return vm;
         }
 
         public void Delete(long id)
@@ -29,19 +35,21 @@ namespace curso_restful.Services
             repo.Delete(id);
         }
 
-        public List<Person> FindAll()
+        public List<PersonVM> FindAll()
         {
-            return repo.FindAll();
+            return converter.ParseList(repo.FindAll());
         }        
 
-        public Person FindById(long id)
+        public PersonVM FindById(long id)
         {
-            return repo.FindById(id);
+            return converter.Parse(repo.FindById(id));
         }
 
-        public Person Update(Person person)
+        public PersonVM Update(PersonVM person)
         {
-            return repo.Update(person);
+            var model = converter.Parse(person);
+            var vm = converter.Parse(repo.Update(model));
+            return vm;
         }        
     }
 }

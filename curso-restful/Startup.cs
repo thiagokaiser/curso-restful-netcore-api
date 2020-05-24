@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using curso_restful.Contexts;
+using curso_restful.Hypermedia;
 using curso_restful.Interfaces;
 using curso_restful.Models;
 using curso_restful.Repositories;
 using curso_restful.Repositories.Generic;
 using curso_restful.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Patterns;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Tapioca.HATEOAS;
 
 namespace curso_restful
 {
@@ -38,6 +42,10 @@ namespace curso_restful
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IBookRepository, BookRepository>();
 
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ObjectContentResponseEnricherList.Add(new PersonEnricher());
+            filterOptions.ObjectContentResponseEnricherList.Add(new BookEnricher());
+            services.AddSingleton(filterOptions);
 
             services.AddDbContext<MyDbContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("CursoRESTful")));
@@ -54,7 +62,7 @@ namespace curso_restful
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -63,8 +71,8 @@ namespace curso_restful
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-            });
+                endpoints.MapControllerRoute("DefaultApi", "{controller=Values}/{id?}");
+            });            
         }
     }
 }

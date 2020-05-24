@@ -1,6 +1,8 @@
 ﻿using curso_restful.Contexts;
 using curso_restful.Interfaces;
 using curso_restful.Models;
+using curso_restful.ViewModels;
+using curso_restful.ViewModels.Converter;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System;
 using System.Collections.Generic;
@@ -13,15 +15,19 @@ namespace curso_restful.Services
     public class BookService
     {
         private IBookRepository repo;
+        private BookConverter converter;
 
         public BookService(IBookRepository repo)
         {
             this.repo = repo;
+            this.converter = new BookConverter();
         }
 
-        public Book Create(Book book)
+        public BookVM Create(BookVM book)
         {
-            return repo.Create(book);
+            var model = converter.Parse(book);
+            var vm = converter.Parse(repo.Create(model));
+            return vm;
         }
 
         public void Delete(long id)
@@ -29,24 +35,26 @@ namespace curso_restful.Services
             repo.Delete(id);
         }
 
-        public List<Book> FindAll()
+        public List<BookVM> FindAll()
         {
-            return repo.FindAll();
+            return converter.ParseList(repo.FindAll());
         }        
 
-        public Book FindById(long id)
+        public BookVM FindById(long id)
         {
-            return repo.FindById(id);
+            return converter.Parse(repo.FindById(id));
         }
 
-        public Book Update(Book book)
+        public BookVM Update(BookVM book)
         {
-            return repo.Update(book);
+            var model = converter.Parse(book);
+            var vm = converter.Parse(repo.Update(model));
+            return vm;
         }
 
-        public Book GetBookByPrice(decimal valor)
+        public BookVM GetBookByPrice(decimal valor)
         {
-            return repo.GetBookByPrice(valor);
+            return converter.Parse(repo.GetBookByPrice(valor));
         }
     }
 }

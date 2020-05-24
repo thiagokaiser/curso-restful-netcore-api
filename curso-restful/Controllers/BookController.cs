@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using curso_restful.Interfaces;
 using curso_restful.Models;
 using curso_restful.Services;
+using curso_restful.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tapioca.HATEOAS;
 
 namespace curso_restful.Controllers
 {
@@ -24,6 +26,7 @@ namespace curso_restful.Controllers
 
         // GET: api/Person
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult GetBook()
         {
             return Ok(service.FindAll());
@@ -31,6 +34,7 @@ namespace curso_restful.Controllers
 
         // GET: api/Person/5
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult GetBook(int id)
         {
             var book = service.FindById(id);
@@ -40,7 +44,8 @@ namespace curso_restful.Controllers
 
         // POST: api/Person
         [HttpPost]
-        public IActionResult PostBook([FromBody] Book book)
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult PostBook([FromBody] BookVM book)
         {
             if (book == null) return BadRequest();
             return new ObjectResult(service.Create(book));
@@ -48,7 +53,8 @@ namespace curso_restful.Controllers
 
         // PUT: api/Person/
         [HttpPut]
-        public IActionResult PutBook([FromBody] Book book)
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult PutBook([FromBody] BookVM book)
         {
             if (book == null) return BadRequest();
             return new ObjectResult(service.Update(book));
@@ -56,6 +62,7 @@ namespace curso_restful.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult DeleteBook(int id)
         {
             service.Delete(id);
@@ -64,6 +71,7 @@ namespace curso_restful.Controllers
 
         // GET: api/Person/5
         [HttpGet("price/{valor}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult GetBookByPrice(decimal valor)
         {
             var book = service.GetBookByPrice(valor);

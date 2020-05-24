@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using curso_restful.Interfaces;
 using curso_restful.Models;
 using curso_restful.Services;
+using curso_restful.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tapioca.HATEOAS;
 
 namespace curso_restful.Controllers
 {
@@ -24,6 +26,7 @@ namespace curso_restful.Controllers
 
         // GET: api/Person
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(personService.FindAll());
@@ -31,6 +34,7 @@ namespace curso_restful.Controllers
 
         // GET: api/Person/5
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(int id)
         {
             var person = personService.FindById(id);
@@ -40,7 +44,8 @@ namespace curso_restful.Controllers
 
         // POST: api/Person
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Post([FromBody] PersonVM person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(personService.Create(person));
@@ -48,7 +53,8 @@ namespace curso_restful.Controllers
 
         // PUT: api/Person/
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        [TypeFilter(typeof(HyperMediaFilter))]
+        public IActionResult Put([FromBody] PersonVM person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(personService.Update(person));
@@ -56,6 +62,7 @@ namespace curso_restful.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         {
             personService.Delete(id);
