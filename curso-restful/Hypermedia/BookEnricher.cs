@@ -4,11 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tapioca.HATEOAS;
 
 namespace curso_restful.Hypermedia
 {
-    public class BookEnricher : ObjectContentResponseEnricher<BookVM>
+    /*public class BookEnricher : ObjectContentResponseEnricher<BookVM>
     {
         protected override Task EnrichModel(BookVM content, IUrlHelper urlHelper)
         {
@@ -17,6 +16,7 @@ namespace curso_restful.Hypermedia
 
             content.Links.Add(new HyperMediaLink()
             {
+                
                 Action = HttpActionVerb.GET,
                 Href = urlHelper.Link("DefaultApi", url),
                 Rel = RelationType.self,
@@ -45,5 +45,5 @@ namespace curso_restful.Hypermedia
             });
             return null;
         }
-    }
+    }*/
 }

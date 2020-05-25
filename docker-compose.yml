@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  curso-restful:
+    image: curso-restful
+    build:
+      context: .
+      dockerfile: curso-restful/Dockerfile    
+    ports:
+      - "5000:80"
+    networks:
+      - curso-network
+
+networks: 
+    curso-network:
+        driver: bridge

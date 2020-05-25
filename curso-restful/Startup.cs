@@ -16,13 +16,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing.Patterns;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Tapioca.HATEOAS;
 
 namespace curso_restful
 {
@@ -42,12 +40,7 @@ namespace curso_restful
             services.AddScoped<BookService>();
             services.AddScoped<FileService>();
             services.AddScoped<IPersonRepository, PersonRepository>();
-            services.AddScoped<IBookRepository, BookRepository>();
-
-            var filterOptions = new HyperMediaFilterOptions();
-            filterOptions.ObjectContentResponseEnricherList.Add(new PersonEnricher());
-            filterOptions.ObjectContentResponseEnricherList.Add(new BookEnricher());
-            services.AddSingleton(filterOptions);
+            services.AddScoped<IBookRepository, BookRepository>();            
 
             services.AddDbContext<MyDbContext>(options =>
                     options.UseNpgsql(Configuration.GetConnectionString("CursoRESTful")));

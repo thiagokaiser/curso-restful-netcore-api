@@ -8,8 +8,6 @@ using curso_restful.Services;
 using curso_restful.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.Swagger.Annotations;
-using Tapioca.HATEOAS;
 
 namespace curso_restful.Controllers
 {
@@ -28,30 +26,28 @@ namespace curso_restful.Controllers
         [HttpGet]        
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult Get()
         {
             return Ok(personService.FindAll());
+            var a = 1;
         }
                 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult Get(int id)
         {
             var person = personService.FindById(id);
             if (person == null) return NotFound();
             return Ok(person);
         }
-                
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult Post([FromBody] PersonVM person)
         {
             if (person == null) return BadRequest();
@@ -61,8 +57,7 @@ namespace curso_restful.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult Put([FromBody] PersonVM person)
         {
             if (person == null) return BadRequest();
@@ -72,8 +67,7 @@ namespace curso_restful.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult Delete(int id)
         {
             personService.Delete(id);

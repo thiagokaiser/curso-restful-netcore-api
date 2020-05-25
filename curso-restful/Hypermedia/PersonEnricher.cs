@@ -4,13 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tapioca.HATEOAS;
 
 namespace curso_restful.Hypermedia
 {
-    public class PersonEnricher : ObjectContentResponseEnricher<PersonVM>
+    public class PersonEnricher
     {
-        protected override Task EnrichModel(PersonVM content, IUrlHelper urlHelper)
+        /*protected override Task EnrichModel(PersonVM content, IUrlHelper urlHelper)
         {
             var path = "api/v1/person";
             var url = new { controller = path, id = content.Id };
@@ -44,6 +43,6 @@ namespace curso_restful.Hypermedia
                 Type = "int"
             });
             return null;
-        }
+        }*/
     }
 }

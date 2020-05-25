@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "curso-restful", "curso-restful\curso-restful.csproj", "{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "curso-restful", "curso-restful\curso-restful.csproj", "{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

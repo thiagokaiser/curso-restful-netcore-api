@@ -8,7 +8,6 @@ using curso_restful.Services;
 using curso_restful.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Tapioca.HATEOAS;
 
 namespace curso_restful.Controllers
 {
@@ -24,55 +23,50 @@ namespace curso_restful.Controllers
             this.service = service;
         }
                 
-        [HttpGet]
+        [HttpGet(Name = "GetBook")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult GetBook()
         {
             return Ok(service.FindAll());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetBookById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
-        public IActionResult GetBook(int id)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
+        public IActionResult GetBookById(int id)
         {
             var book = service.FindById(id);
             if (book == null) return NotFound();
             return Ok(book);
         }
                 
-        [HttpPost]
+        [HttpPost(Name = "PostBook")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult PostBook([FromBody] BookVM book)
         {
             if (book == null) return BadRequest();
             return new ObjectResult(service.Create(book));
         }
                 
-        [HttpPut]
+        [HttpPut(Name = "PutBook")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult PutBook([FromBody] BookVM book)
         {
             if (book == null) return BadRequest();
             return new ObjectResult(service.Update(book));
         }
                 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}", Name = "DeleteBook")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult DeleteBook(int id)
         {
             service.Delete(id);
@@ -80,11 +74,10 @@ namespace curso_restful.Controllers
         }
 
         // GET: api/Person/5
-        [HttpGet("price/{valor}")]
+        [HttpGet("price/{valor}", Name = "GetBookByPrice")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [TypeFilter(typeof(HyperMediaFilter))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult GetBookByPrice(decimal valor)
         {
             var book = service.GetBookByPrice(valor);
