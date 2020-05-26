@@ -7,10 +7,25 @@ services:
       context: .
       dockerfile: curso-restful/Dockerfile    
     ports:
-      - "5000:80"
+      - "5000:80"    
     networks:
-      - curso-network
+      - rede
 
-networks: 
-    curso-network:
-        driver: bridge
+  db:
+    image: postgres
+    container_name: "db"
+    environment:
+      - POSTGRES_DB=testedb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - TZ=GMT        
+    volumes:
+      - "/var/lib/postgresql/data"
+    ports:
+      - "5433:5432"
+    networks:
+      - rede
+
+networks:
+  rede:
+    driver: bridge

@@ -79,7 +79,7 @@ namespace curso_restful
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
             
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

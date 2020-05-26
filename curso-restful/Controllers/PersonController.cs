@@ -29,8 +29,7 @@ namespace curso_restful.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult Get()
         {
-            return Ok(personService.FindAll());
-            var a = 1;
+            return Ok(personService.FindAll());            
         }
                 
         [HttpGet("{id}")]
