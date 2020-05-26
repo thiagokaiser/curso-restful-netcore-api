@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using curso_restful.Hypermedia;
 using curso_restful.Interfaces;
 using curso_restful.Models;
 using curso_restful.Services;
@@ -22,17 +23,19 @@ namespace curso_restful.Controllers
         {
             this.service = service;
         }
-                
-        [HttpGet(Name = "GetBook")]
+
+        [HttpGet(Name = nameof(GetBook))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult GetBook()
         {
-            return Ok(service.FindAll());
+            var books = service.FindAll();
+            books.ForEach(c => AddLinks(c));
+            return Ok(books);
         }
 
-        [HttpGet("{id}", Name = "GetBookById")]
+        [HttpGet("{id}", Name = nameof(GetBookById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
@@ -43,7 +46,7 @@ namespace curso_restful.Controllers
             return Ok(book);
         }
                 
-        [HttpPost(Name = "PostBook")]
+        [HttpPost(Name = nameof(PostBook))]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
@@ -53,7 +56,7 @@ namespace curso_restful.Controllers
             return new ObjectResult(service.Create(book));
         }
                 
-        [HttpPut(Name = "PutBook")]
+        [HttpPut(Name = nameof(PutBook))]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
@@ -63,7 +66,7 @@ namespace curso_restful.Controllers
             return new ObjectResult(service.Update(book));
         }
                 
-        [HttpDelete("{id}", Name = "DeleteBook")]
+        [HttpDelete("{id}", Name = nameof(DeleteBook))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
@@ -74,7 +77,7 @@ namespace curso_restful.Controllers
         }
 
         // GET: api/Person/5
-        [HttpGet("price/{valor}", Name = "GetBookByPrice")]
+        [HttpGet("price/{valor}", Name = nameof(GetBookByPrice))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
@@ -83,6 +86,15 @@ namespace curso_restful.Controllers
             var book = service.GetBookByPrice(valor);
             if (book == null) return NotFound();
             return Ok(book);
+        }
+
+        private void AddLinks(BookVM book)
+        {
+            var path = "api/v1/book/" + book.Id;
+            
+            book.Links.Add(new HyperMediaLink("GET", path, "self", "application/json"));            
+            book.Links.Add(new HyperMediaLink("PUT", path, "update", "application/json"));
+            book.Links.Add(new HyperMediaLink("DELETE", path, "delete", "application/json"));
         }
     }
 }

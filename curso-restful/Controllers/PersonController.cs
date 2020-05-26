@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using curso_restful.Hypermedia;
 using curso_restful.Interfaces;
 using curso_restful.Models;
 using curso_restful.Services;
@@ -29,7 +30,9 @@ namespace curso_restful.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]        
         public IActionResult Get()
         {
-            return Ok(personService.FindAll());            
+            var persons = personService.FindAll();
+            persons.ForEach(c => AddLinks(c));
+            return Ok(persons);
         }
                 
         [HttpGet("{id}")]
@@ -71,6 +74,15 @@ namespace curso_restful.Controllers
         {
             personService.Delete(id);
             return NoContent();
+        }
+
+        private void AddLinks(PersonVM person)
+        {
+            var path = "api/v1/person/" + person.Id;
+
+            person.Links.Add(new HyperMediaLink("GET", path, "self", "application/json"));
+            person.Links.Add(new HyperMediaLink("PUT", path, "update", "application/json"));
+            person.Links.Add(new HyperMediaLink("DELETE", path, "delete", "application/json"));
         }
     }
 }

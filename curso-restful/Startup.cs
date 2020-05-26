@@ -1,26 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using curso_restful.Contexts;
-using curso_restful.Hypermedia;
 using curso_restful.Interfaces;
-using curso_restful.Models;
 using curso_restful.Repositories;
-using curso_restful.Repositories.Generic;
 using curso_restful.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Rewrite;
-using Microsoft.AspNetCore.Routing.Patterns;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace curso_restful
 {
@@ -79,14 +70,14 @@ namespace curso_restful
             option.AddRedirect("^$", "swagger");
             app.UseRewriter(option);
             
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
+            {                
                 endpoints.MapControllerRoute("DefaultApi", "{controller=Values}/{id?}");
             });            
         }
