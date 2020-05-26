@@ -3,9 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "curso-restful", "curso-restful\curso-restful.csproj", "{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{CAD70CD4-8931-41EB-987C-B96A119C3DD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra.csproj", "{DC220BE2-11C2-41E1-9093-D5DFA1D97287}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Api", "1 - Api", "{04BC93A6-833F-4D0D-BA18-E2E38546E8BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Core", "2 - Core", "{0C72A30B-9E76-4CBF-8A33-F3CC6E10F91C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infra", "3 - Infra", "{E0387D0E-510E-4E41-9C26-1978FCD791DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +31,22 @@ Global
 		{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C39AD9B9-F9E5-4938-BD4F-C76E0A547CA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAD70CD4-8931-41EB-987C-B96A119C3DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAD70CD4-8931-41EB-987C-B96A119C3DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAD70CD4-8931-41EB-987C-B96A119C3DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAD70CD4-8931-41EB-987C-B96A119C3DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC220BE2-11C2-41E1-9093-D5DFA1D97287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC220BE2-11C2-41E1-9093-D5DFA1D97287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC220BE2-11C2-41E1-9093-D5DFA1D97287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC220BE2-11C2-41E1-9093-D5DFA1D97287}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A17CD5BC-65A2-4445-8BC7-3C2BE1603D7A} = {04BC93A6-833F-4D0D-BA18-E2E38546E8BE}
+		{CAD70CD4-8931-41EB-987C-B96A119C3DD5} = {0C72A30B-9E76-4CBF-8A33-F3CC6E10F91C}
+		{DC220BE2-11C2-41E1-9093-D5DFA1D97287} = {E0387D0E-510E-4E41-9C26-1978FCD791DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D29928DC-CE9D-4D74-B2AE-7AB55A5FC4B4}
