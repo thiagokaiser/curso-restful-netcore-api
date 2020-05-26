@@ -7,16 +7,18 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["curso-restful/curso-restful.csproj", "curso-restful/"]
-RUN dotnet restore "curso-restful/curso-restful.csproj"
+COPY ["Api/Api.csproj", "Api/"]
+COPY ["Infra/Infra.csproj", "Infra/"]
+COPY ["Core/Core.csproj", "Core/"]
+RUN dotnet restore "Api/Api.csproj"
 COPY . .
-WORKDIR "/src/curso-restful"
-RUN dotnet build "curso-restful.csproj" -c Release -o /app/build
+WORKDIR "/src/Api"
+RUN dotnet build "Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "curso-restful.csproj" -c Release -o /app/publish
+RUN dotnet publish "Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "curso-restful.dll"]
+ENTRYPOINT ["dotnet", "Api.dll"]
